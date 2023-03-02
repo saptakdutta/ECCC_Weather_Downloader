@@ -34,5 +34,7 @@ def data_printer(df: pd.DataFrame, dataFormat: str = 'parquet'):
     return 'Data has been saved to the \Weather_Files folder'
 
 def error_logger():
-    
+    '''
+    Create logging module here
+    '''
     return 0
