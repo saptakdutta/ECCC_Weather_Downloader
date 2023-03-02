@@ -18,19 +18,19 @@ def get_weather_data(station_id: int, year: int, month: int, day = '31', format 
         print('Something went wrong with the API call, returning raw request return parametrs now:')
         return ret
 
-def data_printer(df: pd.DataFrame, dataFormat: str = 'parquet'):
+def data_printer(df: pd.DataFrame, wmo_id: int, dataFormat: str = 'parquet'):
     '''
     By default this function saves weather data to parquet format; i.e., .parquet. If you insist on using CSVs
-    you can specify this in the function call like so: data_printer(df, 'csv'). CSVs are slow and delete the 
-    metadata you worked so hard to build. For large data dumps, they will be slow, inefficient and annoying
-    to process afterwards. 
+    you can specify this in the function call like so ->  data_printer(df, wmo_id, 'csv'). CSVs are slow and delete the 
+    metadata you worked so hard to build. For large data dumps, they will be time consuming, inefficient and 
+    annoying to process afterwards. 
     '''
     maxdate = str(max(pd.to_datetime(df['Date/Time (UTC)']).dt.date))
     mindate = str(min(pd.to_datetime(df['Date/Time (UTC)']).dt.date))
     if (dataFormat == 'csv'):
-        df.to_csv('Weather_Files\climate_data_{}_{}.csv'.format(mindate, maxdate), index=False)
+        df.to_csv('Weather_Files\climate_data_{}_{}_{}.csv'.format(wmo_id, mindate, maxdate), index=False)
     else:
-        df.to_parquet('Weather_Files\climate_data_{}_{}.parquet'.format(mindate, maxdate), index = False)
+        df.to_parquet('Weather_Files\climate_data_{}_{}_{}.parquet'.format(wmo_id, mindate, maxdate), index = False)
     return 'Data has been saved to the \Weather_Files folder'
 
 def error_logger():

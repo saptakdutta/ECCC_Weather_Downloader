@@ -8,25 +8,25 @@ import argparse
 
 #%%Parser commands
 parser = argparse.ArgumentParser(description="""This code extracts hourly data from the ECCC historical weather database""")
-parser.add_argument('-cfg', '--config', default='Config-dev.json',
-                      help= 'Leave blank unless for testing with Dev',
-                      type= str)
-parser.add_argument('-ids', '--building_ids', default='sample-bldg-ids.csv',
-                      help= 'Leave blank unless for testing with Dev',
-                      type= str)
-parser.add_argument('-mt_upd','--met_update', default = 'True', 
-                      help = 'Change to false if updated metadata already exists in a pickle file', 
-                      type = str)
+parser.add_argument('-wmo_id', '--id', default= 71296,
+                      help= 'This is the WMO_ID field on the ECCC site',
+                      type= int)
+parser.add_argument('-yearUpperRange', '--upperRange', default= 2024,
+                      help= 'Upper year for download',
+                      type= int)
+parser.add_argument('-yearLowerRange','--lowerRange', default = 2022, 
+                      help = 'Lower year for download', 
+                      type = int)
 #Parse arguments 
 args = parser.parse_args()
-config_file = args.config
-bld_ids = args.building_ids
-meta_update = args.met_update
+wmo_id = args.id
+upperYearRange = args.upperRange
+lowerYearRange = args.lowerRange
 
 #%% Program body
-wmo_id = 71296 #This is the WMO ID field in the ECCC site
-upperYearRange = 2023
-lowerYearRange = 2022
+# wmo_id = 71296 #This is the WMO ID field in the ECCC site
+# upperYearRange = 2023
+# lowerYearRange = 2022
 
 # Dateranges
 yearRanges = np.arange(lowerYearRange,upperYearRange,1)
@@ -58,8 +58,7 @@ for year in tqdm(yearRanges, desc = 'looping through years:', position = 0):
 
 #reset the index now
 wea_df = wea_df.reset_index(drop = True)
-
 #put the data into a folder
-Connector.data_printer(wea_df)
+Connector.data_printer(wea_df, wmo_id)
 
 # %%
