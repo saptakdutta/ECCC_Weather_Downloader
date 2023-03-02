@@ -1,5 +1,6 @@
 import pandas as pd
 import requests as req
+import logging
 
 # Define functions
 def get_weather_data(station_id: int, year: int, month: int, day = '31', format = 'csv'):
@@ -37,4 +38,8 @@ def error_logger():
     '''
     Create logging module here
     '''
-    return 0
+    logging.basicConfig(level=logging.DEBUG, 
+                        format='%(asctime)s %(levelname)s %(message)s',
+                        filename='/tmp/myapp.log',
+                        filemode='w')
+    return 'Logging has been initiated'

@@ -6,3 +6,7 @@ The tool is written in Python and requires a batch file to execute. All paramete
 
 ### Virtual environment
 The virtual environment required to run this tool will be provided in the future 
+
+## Error handling
+
+Currently error logs have not been enabled. However, this is in the works
