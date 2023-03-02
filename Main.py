@@ -25,7 +25,7 @@ meta_update = args.met_update
 
 #%% Program body
 wmo_id = 71296 #This is the WMO ID field in the ECCC site
-upperYearRange = 2024
+upperYearRange = 2023
 lowerYearRange = 2022
 
 # Dateranges
