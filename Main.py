@@ -17,11 +17,16 @@ parser.add_argument('-yearUpperRange', '--upperRange', default= 2024,
 parser.add_argument('-yearLowerRange','--lowerRange', default = 2022, 
                       help = 'Lower year for download', 
                       type = int)
+parser.add_argument('-outputFormat','--outputFormat', default = 'parquet', 
+                      help = 'specify the output format here', 
+                      type = str)
+
 #Parse arguments 
 args = parser.parse_args()
 wmo_id = args.id
 upperYearRange = args.upperRange
 lowerYearRange = args.lowerRange
+dataFormat = args.outputFormat
 
 #%% Program body
 # wmo_id = 71296 #This is the WMO ID field in the ECCC site
@@ -59,6 +64,6 @@ for year in tqdm(yearRanges, desc = 'looping through years:', position = 0):
 #reset the index now
 wea_df = wea_df.reset_index(drop = True)
 #put the data into a folder
-Connector.data_printer(wea_df, wmo_id)
+Connector.data_printer(wea_df, wmo_id, dataFormat)
 
 # %%
